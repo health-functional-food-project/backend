@@ -7,24 +7,30 @@ import com.example.healthfunctionalfood.dto.UserResponseDto;
 import com.example.healthfunctionalfood.global.jwt.JwtProvider;
 import com.example.healthfunctionalfood.global.utils.UserReader;
 import com.example.healthfunctionalfood.global.utils.UserStore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
-import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
 public class OAuth2Service {
 
-    @Value("dwq")
+    @Value("8cf255fcb71f9b6d8a32a3ace3f34039")
     private String clientId;
-    @Value("dqw")
+    @Value("Iit0399Yso4dzcFHRTUs7SHBVXeOFQls")
     private String clientSecret;
     @Value("https://www.yagiyagi.co.kr/oauth2/callback/kakao")
-    private String redirectUrl;
+    private String redirectUri;
 
     private final JwtProvider jwtProvider;
     private final UserReader userReader;
@@ -33,7 +39,6 @@ public class OAuth2Service {
 
     public UserResponseDto.UserInfoWithJwt kakaoLogin(UserRequestDto.KakaoUserDto kakaoUserDto) {
 
-        Random random = new Random();
         Optional<User> userOptional = userReader.findByKakaoId(kakaoUserDto.getKakaoId());
 
         User savedUser;
@@ -74,5 +79,78 @@ public class OAuth2Service {
                 .userName(savedUser.getUserName())
                 .build();
     }
+
+    // 인가 코드 받기
+
+
+
+
+    // access token 받기
+    public String getAccessTokenByCode(String code) throws JsonProcessingException {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", "authorization_code");
+        body.add("client_id", clientId);
+        body.add("redirect_uri", redirectUri);
+        body.add("code", code);
+        body.add("client_secret", clientSecret);
+
+
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(
+                "https://kauth.kakao.com/oauth/token",
+                HttpMethod.POST,
+                kakaoTokenRequest,
+                String.class
+        );
+
+
+        String responseBody = response.getBody();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responseBody);
+
+        return jsonNode.get("access_token").asText();
+    }
+
+    public UserResponseDto.KakaoUserDto getUserInfoByAccessToken(String accessToken) throws JsonProcessingException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.POST,
+                kakaoUserInfoRequest,
+                String.class
+        );
+        String responseBody = response.getBody();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responseBody);
+        String kakaoId = "KAKAO_" + jsonNode.get("id").asText();
+        String email = jsonNode.get("kakao_account").get("email").asText();
+        String gender = jsonNode.get("kakao_account").get("gender").asText();
+        String userName = jsonNode.get("kakao_account").get("name").asText();
+//        String birthyear = jsonNode.get("kakao_account").get("birthyear").asText();
+//        String birthday = jsonNode.get("kakao_account").get("birthday").asText();
+//        String phone = jsonNode.get("kakao_account").get("phone_number").asText();
+
+        return UserResponseDto.KakaoUserDto.builder()
+                .kakaoId(kakaoId)
+                .email(email)
+                .gender(gender)
+                .userName(userName)
+                .dateOfBirth(null)
+                .build();
+    }
+
+
 
 }

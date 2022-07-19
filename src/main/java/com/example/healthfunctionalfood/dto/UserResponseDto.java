@@ -30,7 +30,7 @@ public class UserResponseDto {
     @Getter
     @Builder
     @AllArgsConstructor
-    public static  class KakaoUserDto {
+    public static class KakaoUserDto {
 
         private String kakaoId;
 
