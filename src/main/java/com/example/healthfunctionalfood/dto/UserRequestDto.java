@@ -1,9 +1,9 @@
-package com.example.healthfunctionalfood.domain.user;
+package com.example.healthfunctionalfood.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class UserDto {
+public class UserRequestDto {
 
     @Getter
     @AllArgsConstructor
@@ -19,4 +19,5 @@ public class UserDto {
 
         private String dateOfBirth;
     }
+
 }

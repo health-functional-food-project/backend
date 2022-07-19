@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/health2?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&sessionVariables=group_concat_max_len=8192&tinyInt1isBit=false&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://49.142.48.252:3306/health2?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&sessionVariables=group_concat_max_len=8192&tinyInt1isBit=false&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: cos
     password: cos1234
 

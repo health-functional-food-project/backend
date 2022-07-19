@@ -1,6 +1,6 @@
 package com.example.healthfunctionalfood.global.jwt;
 
-import com.example.healthfunctionalfood.domain.user.UserDto;
+import com.example.healthfunctionalfood.dto.UserResponseDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -36,7 +36,7 @@ public class JwtProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(UserDto.KakaoUserDto kakaoUserDtoForJwtToken) {
+    public String createToken(UserResponseDto.KakaoUserDto kakaoUserDtoForJwtToken) {
 
         long now = (new Date()).getTime();
 
