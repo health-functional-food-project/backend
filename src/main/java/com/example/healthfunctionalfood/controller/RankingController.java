@@ -17,6 +17,8 @@ public class RankingController {
 
     private final ProductRankingService productRankingService;
 
+    // 랭킹 홈
+
     @GetMapping("/expert-review")
     public String getExpertRanking(Pageable pageable) {
         productRankingService.getExpertRanking(pageable);
@@ -37,6 +39,13 @@ public class RankingController {
 
     @GetMapping("/test")
     public String getTest() {
+        productRankingService.getHealthConcernCategory();
         return "success";
     }
+
+//    @GetMapping("/test2")
+//    public String getTest2() {
+//        productRankingService.getIngredientsCategory2();
+//        return "success";
+//    }
 }

@@ -14,4 +14,10 @@ public interface ProductRankingService {
     List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(String healthConcern, Pageable pageable);
 
     List<ProductRankingResponseDto.RankingItem> getRandomProductList(Pageable pageable);
+
+    List<String> getIngredientsCategory();
+
+//    List<String> getIngredientsCategory2();
+
+    List<String> getHealthConcernCategory();
 }

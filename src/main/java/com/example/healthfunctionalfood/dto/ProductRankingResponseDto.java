@@ -1,6 +1,5 @@
 package com.example.healthfunctionalfood.dto;
 
-import com.example.healthfunctionalfood.domain.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -54,7 +53,7 @@ public class ProductRankingResponseDto {
     @AllArgsConstructor
     public static class CategoryReviewCount {
 
-        private Product product;
+        private String primaryIngredients;
 
         private Long reviewCount;
     }
