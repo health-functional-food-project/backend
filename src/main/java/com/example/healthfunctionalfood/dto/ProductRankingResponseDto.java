@@ -45,9 +45,9 @@ public class ProductRankingResponseDto {
 
         private String companyName;
 
-        private double expertStarRatingAve;
+        private Double expertStarRatingAve;
 
-        private double customerStarRatingAve;
+        private Double customerStarRatingAve;
     }
 
     @Getter

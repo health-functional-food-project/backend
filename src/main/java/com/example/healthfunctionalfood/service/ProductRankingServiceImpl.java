@@ -25,17 +25,35 @@ public class ProductRankingServiceImpl implements ProductRankingService{
 
     @Override
     public List<ProductRankingResponseDto.RankingItem> getExpertRanking(Pageable pageable) {
-        return null;
+        List<ProductRankingResponseDto.RankingItem> expertStarRatingAvgRanking = customProductRepository.getExpertStarRatingAvgRanking(pageable);
+
+        for (ProductRankingResponseDto.RankingItem rankingItem : expertStarRatingAvgRanking) {
+            log.info("getProductName = {}", rankingItem.getProductName());
+        }
+
+        return expertStarRatingAvgRanking;
     }
 
     @Override
-    public List<ProductRankingResponseDto.RankingItem> getIngredientsRanking(Pageable pageable, String ingredient) {
-        return null;
+    public List<ProductRankingResponseDto.RankingItem> getIngredientsRanking(String ingredient, Pageable pageable) {
+        List<ProductRankingResponseDto.RankingItem> ingredientsRanking = customProductRepository.getIngredientsRanking(ingredient, pageable);
+
+        for (ProductRankingResponseDto.RankingItem rankingItem : ingredientsRanking) {
+            log.info("getProductName = {}", rankingItem.getProductName());
+        }
+
+        return ingredientsRanking;
     }
 
     @Override
-    public List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(Pageable pageable, String healthConcern) {
-        return null;
+    public List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(String healthConcern, Pageable pageable) {
+        List<ProductRankingResponseDto.RankingItem> healthConcernRanking = customProductRepository.getHealthConcernRanking(healthConcern, pageable);
+
+        for (ProductRankingResponseDto.RankingItem rankingItem : healthConcernRanking) {
+            log.info("getProductName = {}", rankingItem.getProductName());
+        }
+
+        return healthConcernRanking;
     }
 
     @Override

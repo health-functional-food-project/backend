@@ -9,9 +9,9 @@ public interface ProductRankingService {
 
     List<ProductRankingResponseDto.RankingItem> getExpertRanking(Pageable pageable);
 
-    List<ProductRankingResponseDto.RankingItem> getIngredientsRanking(Pageable pageable, String ingredient);
+    List<ProductRankingResponseDto.RankingItem> getIngredientsRanking(String ingredient, Pageable pageable);
 
-    List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(Pageable pageable, String healthConcern);
+    List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(String healthConcern, Pageable pageable);
 
     List<ProductRankingResponseDto.RankingItem> getRandomProductList(Pageable pageable);
 }
