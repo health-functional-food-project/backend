@@ -50,4 +50,11 @@ public class CustomerController {
         customerService.addCustomerReviewLike(productId, customerReviewId);
         return new ResponseEntity<>(new Success("소비자 리뷰 좋아요 완료!",""), HttpStatus.OK);
     }
+
+    @DeleteMapping("{productId}/customer-review/{customerReviewId}/like")
+    public ResponseEntity<Success> customerReviewLikeRemove(@PathVariable Long productId,
+                                                            @PathVariable Long customerReviewId){
+        customerService.removeCustomerReviewLike(productId, customerReviewId);
+        return new ResponseEntity<>(new Success("소비자 리뷰 좋아요 취소 완료!",""),HttpStatus.OK);
+    }
 }

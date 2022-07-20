@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface CustomerLikeRepository extends JpaRepository<CustomerLike, Long> {
     Optional<CustomerLike> CustomerReviewIdAndUserId(Long customerReviewId, Long id);
+
+    void deleteByCustomerReviewIdAndUserId(Long customerReviewId, Long id);
 }

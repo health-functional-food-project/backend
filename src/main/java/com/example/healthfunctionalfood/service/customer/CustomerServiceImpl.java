@@ -111,4 +111,25 @@ public class CustomerServiceImpl implements CustomerService{
             throw new ApiRequestException("이미 좋아요 한 리뷰입니다.");
         }
     }
+
+    @Override
+    @Transactional
+    public void removeCustomerReviewLike(Long productId, Long customerReviewId) {
+        // 로그인 미완성으로 임시 하드코딩
+        // 존재하는 제품인지, 존재하는 리뷰인지 체크 필요
+        User userEntity = userRepository.findById(1L).get();
+
+        Product productEntity = productRepository.findById(productId).orElseThrow(() ->
+                new ApiRequestException("존재하지 않는 제품입니다."));
+
+        Optional<CustomerReview> customerReview = Optional.ofNullable(customerReviewRepository.findById(customerReviewId).orElseThrow(
+                () -> new ApiRequestException("존재하지 않는 리뷰입니다.")));
+
+        Optional<CustomerLike> customerLikeOptional = customerLikeRepository.CustomerReviewIdAndUserId(customerReviewId, userEntity.getId());
+        if(customerLikeOptional.isPresent()){
+            customerLikeRepository.deleteByCustomerReviewIdAndUserId(customerReviewId, userEntity.getId());
+        }else {
+            throw new ApiRequestException("좋아요 하지 않은 리뷰입니다.");
+        }
+    }
 }
