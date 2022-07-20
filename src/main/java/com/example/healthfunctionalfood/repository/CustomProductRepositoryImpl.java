@@ -24,6 +24,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository{
                         product.id,
                         product.productName,
                         product.companyName,
+                        product.image,
                         product.expertReviewAvg,
                         product.customerReviewAvg
                 )).from(product)
@@ -42,6 +43,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository{
                         product.id,
                         product.productName,
                         product.companyName,
+                        product.image,
                         product.expertReviewAvg,
                         product.customerReviewAvg))
                 .from(product)
@@ -61,6 +63,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository{
                         product.id,
                         product.productName,
                         product.companyName,
+                        product.image,
                         product.expertReviewAvg,
                         product.customerReviewAvg))
                 .from(product)

@@ -1,5 +1,6 @@
 package com.example.healthfunctionalfood.dto;
 
+import com.example.healthfunctionalfood.domain.common.Image;
 import lombok.*;
 
 import java.util.List;
@@ -42,6 +43,8 @@ public class ProductRankingResponseDto {
         private String productName;
 
         private String companyName;
+
+        private Image image;
 
         private Double expertStarRatingAve;
 
