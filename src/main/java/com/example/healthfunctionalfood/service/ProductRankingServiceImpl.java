@@ -25,6 +25,33 @@ public class ProductRankingServiceImpl implements ProductRankingService{
 
 
     @Override
+    public ProductRankingResponseDto.RankingHomeContainer getRankingHome(Pageable pageable) {
+
+        List<ProductRankingResponseDto.RankingItem> expertRankingList = getExpertRanking(pageable);
+
+        List<String> ingredientCategory = getIngredientsCategory();
+        List<ProductRankingResponseDto.RankingItem> ingredientRankingList = getIngredientsRanking(ingredientCategory.get(0), pageable);
+        ProductRankingResponseDto.RakingList ingredientRanking = ProductRankingResponseDto.RakingList.builder()
+                .category(ingredientCategory)
+                .rankingItemList(ingredientRankingList)
+                .build();
+
+        List<String> healthConcernCategory = getHealthConcernCategory();
+        List<ProductRankingResponseDto.RankingItem> healthConcernRankingList = getHealthConcernRanking(healthConcernCategory.get(0), pageable);
+        ProductRankingResponseDto.RakingList healthConcernRanking = ProductRankingResponseDto.RakingList.builder()
+                .category(healthConcernCategory)
+                .rankingItemList(healthConcernRankingList)
+                .build();
+
+
+        return ProductRankingResponseDto.RankingHomeContainer.builder()
+                .expertRankingList(expertRankingList)
+                .ingredientsRankingList(ingredientRanking)
+                .healthConcernRankingList(healthConcernRanking)
+                .build();
+    }
+
+    @Override
     public List<ProductRankingResponseDto.RankingItem> getExpertRanking(Pageable pageable) {
         List<ProductRankingResponseDto.RankingItem> expertStarRatingAvgRanking = customProductRepository.getExpertStarRatingAvgRanking(pageable);
 

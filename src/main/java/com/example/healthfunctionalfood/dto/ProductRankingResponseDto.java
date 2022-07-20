@@ -1,35 +1,34 @@
 package com.example.healthfunctionalfood.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 public class ProductRankingResponseDto {
 
     @Getter
+    @Builder
+    @AllArgsConstructor
     @RequiredArgsConstructor
-    public static class RankingMainContainer {
+    public static class RankingHomeContainer {
 
-        private RakingList expertRankingList;
+        private List<RankingItem> expertRankingList;
 
         private RakingList ingredientsRankingList;
 
         private RakingList healthConcernRankingList;
 
-        private RakingList ganderAndAgeRankingList;
-
     }
 
     @Getter
+    @Builder
+    @AllArgsConstructor
     @RequiredArgsConstructor
     public static class RakingList {
 
         private List<String> category;
 
-        private List<RankingItem> rankingListItemList;
+        private List<RankingItem> rankingItemList;
     }
 
     @Getter

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ProductRankingService {
 
+    ProductRankingResponseDto.RankingHomeContainer getRankingHome(Pageable pageable);
+
     List<ProductRankingResponseDto.RankingItem> getExpertRanking(Pageable pageable);
 
     List<ProductRankingResponseDto.RankingItem> getIngredientsRanking(String ingredient, Pageable pageable);

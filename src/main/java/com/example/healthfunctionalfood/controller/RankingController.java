@@ -1,5 +1,6 @@
 package com.example.healthfunctionalfood.controller;
 
+import com.example.healthfunctionalfood.dto.ProductRankingResponseDto;
 import com.example.healthfunctionalfood.service.ProductRankingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,10 @@ public class RankingController {
     private final ProductRankingService productRankingService;
 
     // 랭킹 홈
+    @GetMapping("/home")
+    public ProductRankingResponseDto.RankingHomeContainer getRankingHome(Pageable pageable) {
+        return productRankingService.getRankingHome(pageable);
+    }
 
     @GetMapping("/expert-review")
     public String getExpertRanking(Pageable pageable) {
