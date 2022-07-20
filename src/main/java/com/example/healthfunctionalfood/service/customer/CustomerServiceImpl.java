@@ -32,22 +32,9 @@ public class CustomerServiceImpl implements CustomerService{
 
         Product productEntity = productRepository.findById(productId).orElseThrow(() ->
                 new ApiRequestException("존재하지 않는 제품입니다."));
+        CustomerReview saveCustomerReview = createReview.toEntity(productEntity, userEntity);
 
-        CustomerReview customerReview = CustomerReview.builder()
-                .takingCheck(createReview.getTakingCheck())
-                .cons(createReview.getCons())
-                .product(productEntity)
-                .exposureStatus(createReview.getExposureStatus())
-                .familyTakingCheck(createReview.getFamilyTakingCheck())
-                .pros(createReview.getPros())
-                .starRating(createReview.getStarRating())
-                .user(userEntity)
-                .cons(createReview.getCons())
-                .takingCheck(createReview.getTakingCheck())
-                .keyword(createReview.getKeyword())
-                .build();
-
-        CustomerReview saveCustomerReview = customerReviewRepository.save(customerReview);
-        return saveCustomerReview.getId();
+        CustomerReview customer = customerReviewRepository.save(saveCustomerReview);
+        return customer.getId();
     }
 }

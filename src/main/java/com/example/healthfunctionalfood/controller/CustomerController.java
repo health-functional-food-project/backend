@@ -19,6 +19,6 @@ public class CustomerController {
     public ResponseEntity<Success> customerReviewAdd(@PathVariable Long productId,
                                                      @RequestBody CustomerReviewDto.CreateReview createReview){
         Long customerReviewId = customerService.addCustomerReview(productId, createReview);
-        return new ResponseEntity<>(new Success("",customerReviewId), HttpStatus.OK);
+        return new ResponseEntity<>(new Success("소비자 리뷰 작성 완료!",customerReviewId), HttpStatus.OK);
     }
 }
