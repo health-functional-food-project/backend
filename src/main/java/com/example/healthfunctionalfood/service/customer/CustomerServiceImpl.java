@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -30,6 +28,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Transactional
     public Long addCustomerReview(Long productId, CustomerReviewDto.CreateReview createReview) {
         // 로그인 미완성으로 임시 하드코딩
+        // 카카오 로그인으로 사용자 정보 받는 로직 추가 필요
         User userEntity = userRepository.findById(1L).get();
 
         Product productEntity = productRepository.findById(productId).orElseThrow(() ->
@@ -44,11 +43,24 @@ public class CustomerServiceImpl implements CustomerService{
     @Transactional
     public void modifyCustomerReview(Long productId, CustomerReviewDto.CreateReview updateReview, Long customerReviewId) {
         // 로그인 미완성으로 임시 하드코딩
+        // 본인이 쓴글인지, 존재하는 제품인지, 존재하는 리뷰인지 체크 필요
         User userEntity = userRepository.findById(1L).get();
 
         Product productEntity = productRepository.findById(productId).orElseThrow(() ->
                 new ApiRequestException("존재하지 않는 제품입니다."));
         CustomerReview customerReview = customerReviewRepository.findById(customerReviewId).get();
         customerReview.updateReview(updateReview);
+    }
+
+    @Override
+    @Transactional
+    public void removeCustomerReview(Long productId, Long customerReviewId) {
+        // 로그인 미완성으로 임시 하드코딩
+        // 본인이 쓴글인지, 존재하는 제품인지, 존재하는 리뷰인지 체크 필요
+        User userEntity = userRepository.findById(1L).get();
+
+        Product productEntity = productRepository.findById(productId).orElseThrow(() ->
+                new ApiRequestException("존재하지 않는 제품입니다."));
+        customerReviewRepository.deleteById(customerReviewId);
     }
 }

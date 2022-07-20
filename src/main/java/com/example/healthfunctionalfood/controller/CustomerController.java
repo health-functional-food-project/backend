@@ -29,4 +29,11 @@ public class CustomerController {
         customerService.modifyCustomerReview(productId, updateReview, customerReviewId);
         return new ResponseEntity<>(new Success("소비자 리뷰 수정 완료!",""), HttpStatus.OK);
     }
+
+    @DeleteMapping("{productId}/customer-review/{customerReviewId}")
+    public ResponseEntity<Success> customerReviewRemove(@PathVariable Long productId,
+                                                        @PathVariable Long customerReviewId){
+        customerService.removeCustomerReview(productId, customerReviewId);
+        return new ResponseEntity<>(new Success("소비자 리뷰 삭제 완료!",""), HttpStatus.OK);
+    }
 }
