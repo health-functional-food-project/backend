@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,5 +38,17 @@ public class CustomerServiceImpl implements CustomerService{
 
         CustomerReview customer = customerReviewRepository.save(saveCustomerReview);
         return customer.getId();
+    }
+
+    @Override
+    @Transactional
+    public void modifyCustomerReview(Long productId, CustomerReviewDto.CreateReview updateReview, Long customerReviewId) {
+        // 로그인 미완성으로 임시 하드코딩
+        User userEntity = userRepository.findById(1L).get();
+
+        Product productEntity = productRepository.findById(productId).orElseThrow(() ->
+                new ApiRequestException("존재하지 않는 제품입니다."));
+        CustomerReview customerReview = customerReviewRepository.findById(customerReviewId).get();
+        customerReview.updateReview(updateReview);
     }
 }

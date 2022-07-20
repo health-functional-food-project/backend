@@ -21,4 +21,12 @@ public class CustomerController {
         Long customerReviewId = customerService.addCustomerReview(productId, createReview);
         return new ResponseEntity<>(new Success("소비자 리뷰 작성 완료!",customerReviewId), HttpStatus.OK);
     }
+
+    @PutMapping("{productId}/customer-review/{customerReviewId}")
+    public ResponseEntity<Success> customerReviewModify(@PathVariable Long productId,
+                                                        @RequestBody CustomerReviewDto.CreateReview updateReview,
+                                                        @PathVariable Long customerReviewId){
+        customerService.modifyCustomerReview(productId, updateReview, customerReviewId);
+        return new ResponseEntity<>(new Success("소비자 리뷰 수정 완료!",""), HttpStatus.OK);
+    }
 }
