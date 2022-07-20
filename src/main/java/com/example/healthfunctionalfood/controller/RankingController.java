@@ -1,7 +1,7 @@
 package com.example.healthfunctionalfood.controller;
 
 import com.example.healthfunctionalfood.dto.ProductRankingResponseDto;
-import com.example.healthfunctionalfood.service.ProductRankingService;
+import com.example.healthfunctionalfood.service.ranking.ProductRankingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package com.example.healthfunctionalfood.service;
+package com.example.healthfunctionalfood.service.ranking;
 
 import com.example.healthfunctionalfood.dto.ProductRankingResponseDto;
 import org.springframework.data.domain.Pageable;

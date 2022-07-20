@@ -1,4 +1,4 @@
-package com.example.healthfunctionalfood.service;
+package com.example.healthfunctionalfood.service.ranking;
 
 import com.example.healthfunctionalfood.dto.ProductRankingResponseDto;
 import com.example.healthfunctionalfood.repository.CustomCustomerReviewRepository;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductRankingServiceImpl implements ProductRankingService{
+public class ProductRankingServiceImpl implements ProductRankingService {
 
     private final UserRepository userRepository;
     private final CustomExpertReviewRepository customExpertReviewRepository;
