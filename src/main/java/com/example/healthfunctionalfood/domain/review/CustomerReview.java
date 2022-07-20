@@ -27,8 +27,10 @@ public class CustomerReview extends TimeStamped {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToMany(mappedBy = "customerReview",cascade = CascadeType.ALL)
-    private final List<CustomerKeyword> customerKeywords = new ArrayList<>();
+    private String keyword;
+
+//    @OneToMany(mappedBy = "customerReview",cascade = CascadeType.ALL)
+//    private final List<CustomerKeyword> customerKeywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "customerReview", cascade = CascadeType.ALL)
     private final List<CustomerLike> customerLikes = new ArrayList<>();
@@ -47,4 +49,17 @@ public class CustomerReview extends TimeStamped {
     private String cons;
 
     private Boolean exposureStatus;
+
+    @Builder
+    public CustomerReview(User user, Product product, Integer starRating, Boolean takingCheck, Boolean familyTakingCheck, String pros, String cons, Boolean exposureStatus, String keyword) {
+        this.user = user;
+        this.product = product;
+        this.starRating = starRating;
+        this.takingCheck = takingCheck;
+        this.familyTakingCheck = familyTakingCheck;
+        this.pros = pros;
+        this.cons = cons;
+        this.exposureStatus = exposureStatus;
+        this.keyword = keyword;
+    }
 }
