@@ -2,10 +2,12 @@ package com.example.healthfunctionalfood.service.customer;
 
 import com.example.healthfunctionalfood.advice.exception.ApiRequestException;
 import com.example.healthfunctionalfood.domain.product.Product;
+import com.example.healthfunctionalfood.domain.review.CustomerLike;
 import com.example.healthfunctionalfood.domain.review.CustomerReview;
 import com.example.healthfunctionalfood.domain.user.User;
 import com.example.healthfunctionalfood.dto.request.CustomerReviewRequestDto;
 import com.example.healthfunctionalfood.dto.response.CustomerReviewResponseDto;
+import com.example.healthfunctionalfood.repository.CustomerLikeRepository;
 import com.example.healthfunctionalfood.repository.CustomerReviewRepository;
 import com.example.healthfunctionalfood.repository.ProductRepository;
 import com.example.healthfunctionalfood.repository.UserRepository;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +31,8 @@ public class CustomerServiceImpl implements CustomerService{
     private final ProductRepository productRepository;
 
     private final CustomerReviewRepository customerReviewRepository;
+
+    private final CustomerLikeRepository customerLikeRepository;
     @Override
     @Transactional
     public Long addCustomerReview(Long productId, CustomerReviewRequestDto.CreateReview createReview) {
@@ -80,5 +85,30 @@ public class CustomerServiceImpl implements CustomerService{
         return customerReviewRepository.findByUserId(userEntity.getId()).stream()
                 .map(CustomerReviewResponseDto.MyReview::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void addCustomerReviewLike(Long productId, Long customerReviewId) {
+        // 로그인 미완성으로 임시 하드코딩
+        // 존재하는 제품인지, 존재하는 리뷰인지 체크 필요
+        User userEntity = userRepository.findById(1L).get();
+
+        Product productEntity = productRepository.findById(productId).orElseThrow(() ->
+                new ApiRequestException("존재하지 않는 제품입니다."));
+
+        Optional<CustomerReview> customerReview = Optional.ofNullable(customerReviewRepository.findById(customerReviewId).orElseThrow(
+                () -> new ApiRequestException("존재하지 않는 리뷰입니다.")));
+
+        Optional<CustomerLike> customerLikeOptional = customerLikeRepository.CustomerReviewIdAndUserId(customerReviewId, userEntity.getId());
+        if(customerLikeOptional.isEmpty()){
+            CustomerLike customerLike = CustomerLike.builder()
+                    .user(userEntity)
+                    .customerReview(customerReview.get())
+                    .build();
+            customerLikeRepository.save(customerLike);
+        }else {
+            throw new ApiRequestException("이미 좋아요 한 리뷰입니다.");
+        }
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,5 +42,12 @@ public class CustomerController {
     @GetMapping("{productId}/customer-review")
     public ResponseEntity<Success> customerReviewList(@PathVariable Long productId){
         return new ResponseEntity<>(new Success("내가 작성한 리뷰 조회 완료", customerService.findOneCustomerReview(productId)), HttpStatus.OK);
+    }
+
+    @PostMapping("{productId}/customer-review/{customerReviewId}/like")
+    public ResponseEntity<Success> customerReviewLikeAdd(@PathVariable Long productId,
+                                                         @PathVariable Long customerReviewId){
+        customerService.addCustomerReviewLike(productId, customerReviewId);
+        return new ResponseEntity<>(new Success("소비자 리뷰 좋아요 완료!",""), HttpStatus.OK);
     }
 }

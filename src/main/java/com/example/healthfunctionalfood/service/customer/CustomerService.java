@@ -13,4 +13,6 @@ public interface CustomerService {
     void removeCustomerReview(Long productId, Long customerReviewId);
 
     List<CustomerReviewResponseDto.MyReview> findOneCustomerReview(Long productId);
+
+    void addCustomerReviewLike(Long productId, Long customerReviewId);
 }
