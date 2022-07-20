@@ -29,7 +29,7 @@ public class OAuth2Service {
     private String clientId;
     @Value("Iit0399Yso4dzcFHRTUs7SHBVXeOFQls")
     private String clientSecret;
-    @Value("https://www.yagiyagi.co.kr/oauth2/callback/kakao")
+    @Value("http:/localhost:8080/oauth2/callback/kakao")
     private String redirectUri;
 
     private final JwtProvider jwtProvider;
@@ -81,7 +81,6 @@ public class OAuth2Service {
     }
 
     // 인가 코드 받기
-
 
 
 

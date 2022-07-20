@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,7 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private JwtAuthenticationFilter jwtAuthenticationFilter;
-    private HttpSecurity http;
     private final JwtProvider jwtProvider;
 
     @Bean
@@ -26,16 +26,23 @@ public class SecurityConfig {
     }
 
     @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/error", "/favicon.ico");
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        this.http = http;
         http.authorizeRequests()
-                .antMatchers("/api","/api/**").permitAll()
+                .antMatchers("/api/**", "/oauth2/authorize/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .disable()
                 .csrf()
+                .disable()
+                .httpBasic()
                 .disable();
+
         http.apply(new JwtSecurityConfig(jwtProvider));
 
         return http.build();
