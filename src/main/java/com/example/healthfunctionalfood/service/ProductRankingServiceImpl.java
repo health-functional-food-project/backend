@@ -173,8 +173,8 @@ public class ProductRankingServiceImpl implements ProductRankingService{
 
 
     @Override
-    public List<ProductRankingResponseDto.RankingItem> getRandomProductList(Pageable pageable) {
-        return null;
+    public List<ProductRankingResponseDto.RankingItem> getRandomProduct(Pageable pageable) {
+        return customProductRepository.getRandomProduct(pageable);
     }
 
 

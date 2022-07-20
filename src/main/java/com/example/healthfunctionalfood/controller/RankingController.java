@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -40,6 +42,11 @@ public class RankingController {
     public String getHealthConcernRanking(@RequestParam("health-concern") String healthConcern, Pageable pageable) {
         productRankingService.getHealthConcernRanking(healthConcern, pageable);
         return "success";
+    }
+
+    @GetMapping("/random")
+    private List<ProductRankingResponseDto.RankingItem> getRandomProduct(Pageable pageable) {
+        return productRankingService.getRandomProduct(pageable);
     }
 
     @GetMapping("/test")
