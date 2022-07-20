@@ -1,4 +1,4 @@
-package com.example.healthfunctionalfood.dto;
+package com.example.healthfunctionalfood.dto.request;
 
 import com.example.healthfunctionalfood.domain.product.Product;
 import com.example.healthfunctionalfood.domain.review.CustomerReview;
@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-public class CustomerReviewDto {
+public class CustomerReviewRequestDto {
 
     @NoArgsConstructor
     @Getter

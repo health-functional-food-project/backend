@@ -3,7 +3,7 @@ package com.example.healthfunctionalfood.domain.review;
 import com.example.healthfunctionalfood.TimeStamped;
 import com.example.healthfunctionalfood.domain.product.Product;
 import com.example.healthfunctionalfood.domain.user.User;
-import com.example.healthfunctionalfood.dto.CustomerReviewDto;
+import com.example.healthfunctionalfood.dto.request.CustomerReviewRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -64,7 +64,7 @@ public class CustomerReview extends TimeStamped {
         this.keyword = keyword;
     }
 
-    public void updateReview(CustomerReviewDto.CreateReview updateReview) {
+    public void updateReview(CustomerReviewRequestDto.CreateReview updateReview) {
         this.keyword = updateReview.getKeyword();
         this.starRating = updateReview.getStarRating();
         this.takingCheck = updateReview.getTakingCheck();
