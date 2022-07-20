@@ -30,14 +30,14 @@ public class ProductRankingResponseDto {
 
         private List<String> category;
 
-        private List<RankingListItem> rankingListItemList;
+        private List<RankingItem> rankingListItemList;
     }
 
     @Getter
     @Builder
     @AllArgsConstructor
     @RequiredArgsConstructor
-    public static class RankingListItem {
+    public static class RankingItem {
 
         private Long productId;
 
@@ -51,17 +51,6 @@ public class ProductRankingResponseDto {
     }
 
     @Getter
-    @RequiredArgsConstructor
-    @AllArgsConstructor
-    public static class ProductRanking {
-
-        private Product product;
-
-        private double average;
-
-    }
-
-    @Getter
     @AllArgsConstructor
     public static class CategoryReviewCount {
 
@@ -69,4 +58,5 @@ public class ProductRankingResponseDto {
 
         private Long reviewCount;
     }
+
 }

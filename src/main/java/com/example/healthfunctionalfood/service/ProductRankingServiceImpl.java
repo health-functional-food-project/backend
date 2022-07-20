@@ -24,22 +24,22 @@ public class ProductRankingServiceImpl implements ProductRankingService{
 
 
     @Override
-    public List<ProductRankingResponseDto.RankingListItem> getExpertRanking(Pageable pageable) {
+    public List<ProductRankingResponseDto.RankingItem> getExpertRanking(Pageable pageable) {
         return null;
     }
 
     @Override
-    public List<ProductRankingResponseDto.RankingListItem> getIngredientsRanking(Pageable pageable, String ingredient) {
+    public List<ProductRankingResponseDto.RankingItem> getIngredientsRanking(Pageable pageable, String ingredient) {
         return null;
     }
 
     @Override
-    public List<ProductRankingResponseDto.RankingListItem> getHealthConcernRanking(Pageable pageable, String healthConcern) {
+    public List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(Pageable pageable, String healthConcern) {
         return null;
     }
 
     @Override
-    public List<ProductRankingResponseDto.RankingListItem> getRandomProductList(Pageable pageable) {
+    public List<ProductRankingResponseDto.RankingItem> getRandomProductList(Pageable pageable) {
         return null;
     }
 }

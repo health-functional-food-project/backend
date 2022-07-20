@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ProductRankingService {
 
-    List<ProductRankingResponseDto.RankingListItem> getExpertRanking(Pageable pageable);
+    List<ProductRankingResponseDto.RankingItem> getExpertRanking(Pageable pageable);
 
-    List<ProductRankingResponseDto.RankingListItem> getIngredientsRanking(Pageable pageable, String ingredient);
+    List<ProductRankingResponseDto.RankingItem> getIngredientsRanking(Pageable pageable, String ingredient);
 
-    List<ProductRankingResponseDto.RankingListItem> getHealthConcernRanking(Pageable pageable, String healthConcern);
+    List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(Pageable pageable, String healthConcern);
 
-    List<ProductRankingResponseDto.RankingListItem> getRandomProductList(Pageable pageable);
+    List<ProductRankingResponseDto.RankingItem> getRandomProductList(Pageable pageable);
 }
