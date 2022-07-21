@@ -27,4 +27,10 @@ public class ProductController {
         productService.addProductWishList(productId);
         return new ResponseEntity<>(new Success("찜하기 성공!", ""),HttpStatus.OK);
     }
+
+    @DeleteMapping("/{productId}/wishList")
+    public ResponseEntity<Success> productWishListRemove(@PathVariable Long productId){
+        productService.removeProductWishList(productId);
+        return new ResponseEntity<>(new Success("찜하기 취소 성공!",""),HttpStatus.OK);
+    }
 }

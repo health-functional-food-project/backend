@@ -45,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void addProductWishList(Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(() ->
                 new ApiRequestException("해당 상품이 존재하지 않습니다."));
@@ -62,6 +63,23 @@ public class ProductServiceImpl implements ProductService {
             productWishListRepository.save(productWishList);
         } else {
             throw new ApiRequestException("이미 찜한 상품입니다.");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void removeProductWishList(Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(() ->
+                new ApiRequestException("해당 상품이 존재하지 않습니다."));
+
+        //로그인 미완성으로 임시 하드코딩
+        User user = userRepository.findById(1L).get();
+
+        Optional<ProductWishList> productWishListOptional = productWishListRepository.findByProductIdAndUserId(productId, user.getId());
+        if(productWishListOptional.isPresent()){
+            productWishListRepository.deleteByProductIdAndUserId(productId, user.getId());
+        }else {
+            throw new ApiRequestException("찜한 상품이 아닙니다.");
         }
     }
 }

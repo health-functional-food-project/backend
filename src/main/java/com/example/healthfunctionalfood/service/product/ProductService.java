@@ -7,4 +7,6 @@ public interface ProductService {
     ProductResponseDto.SearchAndCount findAllProductSearchList(String search);
 
     void addProductWishList(Long productId);
+
+    void removeProductWishList(Long productId);
 }
