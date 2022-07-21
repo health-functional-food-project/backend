@@ -21,9 +21,9 @@ spring:
       client:
         registration:
           kakao:
-            client-id: 8cf255fcb71f9b6d8a32a3ace3f34039
+            client-id: ${secrets.KAKAO_CLIENT_ID}
             client-name: Kakao
-            client-secret: Iit0399Yso4dzcFHRTUs7SHBVXeOFQls
+            client-secret: ${secrets.KAKAO_CLIENT_SECRET}
             redirect-uri: "{baseUrl}/oauth/callback/{registrationId}"
             scope: account_email
             authorization-grant-type: authorization_code
