@@ -28,14 +28,27 @@ public class ExpertReview extends TimeStamped {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String userName;
-
-    private String pharmacy;
+    private String drugStore;
 
     private double starRating;
 
     private String comment;
 
-    @OneToMany(mappedBy = "expertReview",cascade = CascadeType.ALL)
-    private final List<ExpertKeyword> expertKeywords = new ArrayList<>();
+    private String cons;
+
+    private String pros;
+
+    private String precautions;
+
+    @Builder
+    public ExpertReview(Product product, User user, String drugStore, double starRating, String comment, String cons, String pros, String precautions) {
+        this.product = product;
+        this.user = user;
+        this.drugStore = drugStore;
+        this.starRating = starRating;
+        this.comment = comment;
+        this.cons = cons;
+        this.pros = pros;
+        this.precautions = precautions;
+    }
 }
