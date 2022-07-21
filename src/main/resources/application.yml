@@ -35,5 +35,11 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user_name_attribute: id
 
+app:
+  cors:
+    allowedOrigins: http://localhost:3000,http://localhost:8080
+  oauth2:
+    authorized-redirect-uris:
+      - http://localhost:8080/oauth2/redirect
 #server:
 #  port: 80
