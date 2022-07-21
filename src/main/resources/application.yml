@@ -35,5 +35,5 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user_name_attribute: id
 
-#server:
-#  port: 80
+server:
+  port: 80
