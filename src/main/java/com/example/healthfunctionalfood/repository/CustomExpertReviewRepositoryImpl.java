@@ -1,6 +1,9 @@
 package com.example.healthfunctionalfood.repository;
 
 import com.example.healthfunctionalfood.domain.review.QExpertReview;
+import com.example.healthfunctionalfood.dto.HomeResponseDto;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -30,4 +33,23 @@ public class CustomExpertReviewRepositoryImpl implements CustomExpertReviewRepos
                 .from(expertReview)
                 .fetch();
     }
+
+    @Override
+    public List<HomeResponseDto.ExpertReview> getExpertReviewForMain() {
+        QExpertReview expertReview = QExpertReview.expertReview;
+
+        return jpaQueryFactory.select(Projections.constructor(HomeResponseDto.ExpertReview.class,
+                        expertReview.product.id.as("productId"),
+                        expertReview.product.productName.as("productName"),
+                        expertReview.product.expertReviewAvg.as("starRating"),
+                        expertReview.comment.as("comment"),
+                        expertReview.product.image.as("productImage")))
+                .from(expertReview)
+//                .join(expertReview, QProduct.product.expertReviewList)
+                .orderBy(Expressions.numberTemplate(Double.class,"rand()").asc())
+                .limit(12)
+                .fetch();
+    }
+
+
 }

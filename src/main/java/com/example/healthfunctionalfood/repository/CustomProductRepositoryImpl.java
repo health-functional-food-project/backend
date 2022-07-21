@@ -57,6 +57,25 @@ public class CustomProductRepositoryImpl implements CustomProductRepository{
     }
 
     @Override
+    public List<ProductRankingResponseDto.RankingItem> getIngredientsRanking(String ingredient) {
+        QProduct product = QProduct.product;
+
+        return jpaQueryFactory.select(Projections.constructor(ProductRankingResponseDto.RankingItem.class,
+                        product.id,
+                        product.productName,
+                        product.companyName,
+                        product.image,
+                        product.expertReviewAvg,
+                        product.customerReviewAvg))
+                .from(product)
+                .join(product.expertReviewList, QExpertReview.expertReview)
+                .where(product.primaryIngredients.contains(ingredient))
+                .orderBy(product.expertReviewAvg.desc())
+                .limit(3)
+                .fetch();
+    }
+
+    @Override
     public List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(String healthConcern, Pageable pageable) {
         QProduct product = QProduct.product;
 
@@ -77,6 +96,26 @@ public class CustomProductRepositoryImpl implements CustomProductRepository{
     }
 
     @Override
+    public List<ProductRankingResponseDto.RankingItem> getHealthConcernRanking(String healthConcern) {
+        QProduct product = QProduct.product;
+
+        return jpaQueryFactory.select(Projections.constructor(ProductRankingResponseDto.RankingItem.class,
+                        product.id,
+                        product.productName,
+                        product.companyName,
+                        product.image,
+                        product.expertReviewAvg,
+                        product.customerReviewAvg))
+                .from(product)
+                .join(product.expertReviewList, QExpertReview.expertReview)
+                .where(product.funcContent.contains(healthConcern))
+                .orderBy(product.expertReviewAvg.desc())
+                .limit(3)
+                .fetch();
+    }
+
+
+    @Override
     public List<ProductRankingResponseDto.RankingItem> getRandomProduct(Pageable pageable) {
         QProduct product = QProduct.product;
 
@@ -93,6 +132,15 @@ public class CustomProductRepositoryImpl implements CustomProductRepository{
                 .limit(pageable.getPageSize())
                 .fetch();
     }
+
+//    public List<HomeResponseDto.ExpertRecommend> getExpertRecommend(List<Long> productIdList) {
+////        QProduct product = QProduct.product;
+////
+////        return jpaQueryFactory.select()
+////                .from(product)
+////                .where(product.id.eqAny(productIdList))
+//        return null;
+//    }
 
 
 }

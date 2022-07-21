@@ -105,10 +105,8 @@ public class ProductRankingServiceImpl implements ProductRankingService {
 
         List<Map.Entry<String, Long>> ingredientsCategoryEntry = ingredientTreeMap.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).toList();
-        List<String> ingredientsCategoryList = ingredientsCategoryEntry.stream().map(Map.Entry::getKey).limit(10)
-                .collect(Collectors.toList());
 
-        return ingredientsCategoryList;
+        return ingredientsCategoryEntry.stream().map(Map.Entry::getKey).limit(10).toList();
     }
 
     // for-loop 테스트
