@@ -3,6 +3,7 @@ package com.example.healthfunctionalfood.controller;
 import com.example.healthfunctionalfood.service.OAuth2Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,4 +24,9 @@ public class OAuth2Controller {
 //
 //        return new ResponseEntity<>(new Success("카카오 로그인 완료", userInfoWithJwt), HttpStatus.OK);
 //    }
+
+    @GetMapping("/api/login")
+    public String kakao() {
+        return oAuth2Service.getKakaoCode();
+    }
 }

@@ -81,7 +81,9 @@ public class OAuth2Service {
     }
 
     // 인가 코드 받기
-
+    public String getKakaoCode() {
+        return "https://https://kauth.kakao.com/oauth/authorize?client_id=8cf255fcb71f9b6d8a32a3ace3f34039&redirect_uri=http:/localhost:8080/oauth/callback/kakao&response_type=code";
+    }
 
 
     // access token 받기
