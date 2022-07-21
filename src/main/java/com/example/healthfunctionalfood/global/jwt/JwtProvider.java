@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class JwtProvider implements InitializingBean {
 
     private String AUTHORITIES_KEY = "healthFunctionalFood";
-    private String secret = "DSQADSAJHBVDFDHWQBDLWQJKHBDLWQJKHDGWLQJHKDGWQLJHDGWQKJLKHVBFDLHJVBFDSL";
+    private String secret = "DSQADSAJHBVDFDHWQBDLWQJKHBDLWQJKHDGWLQJHKDGWQLJHDGWQKJLKHVBDLKSAJHFDSLAKJFHDSALKJFDHSALKFJDSAHFLKDSAJHFDLSKAJFHDSALKFJDSHALFKDSJAHFLDKSAJFHDLSAKFJDHSALKFDSUJAHFLDKSAJHFDFDLHJVBFDSL";
     private long tokenValidityInMilliseconds = 100000000000000000l;
     private long accessTokenValidityInMilliseconds = 100000000000000000l;
     private long refreshTokenValidityInMilliseconds = 100000000000000000l;

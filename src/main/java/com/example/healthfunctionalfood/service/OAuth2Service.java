@@ -2,7 +2,6 @@ package com.example.healthfunctionalfood.service;
 
 import com.example.healthfunctionalfood.domain.user.SocialType;
 import com.example.healthfunctionalfood.domain.user.User;
-import com.example.healthfunctionalfood.dto.UserRequestDto;
 import com.example.healthfunctionalfood.dto.UserResponseDto;
 import com.example.healthfunctionalfood.global.jwt.JwtProvider;
 import com.example.healthfunctionalfood.global.utils.UserReader;
@@ -39,7 +38,7 @@ public class OAuth2Service {
     private final UserStore userStore;
     private final PasswordEncoder passwordEncoder;
 
-    public UserResponseDto.UserInfoWithJwt kakaoLogin(UserRequestDto.KakaoUserDto kakaoUserDto) {
+    public UserResponseDto.UserInfoWithJwt kakaoLogin(UserResponseDto.KakaoUserDto kakaoUserDto) {
 
         Optional<User> userOptional = userReader.findByKakaoId(kakaoUserDto.getKakaoId());
 
