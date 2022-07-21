@@ -2,7 +2,6 @@ package com.example.healthfunctionalfood.controller;
 
 import com.example.healthfunctionalfood.advice.Success;
 import com.example.healthfunctionalfood.dto.request.CustomerReviewRequestDto;
-import com.example.healthfunctionalfood.dto.response.CustomerReviewResponseDto;
 import com.example.healthfunctionalfood.service.customer.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
