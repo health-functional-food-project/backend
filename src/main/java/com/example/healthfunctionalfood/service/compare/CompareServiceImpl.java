@@ -1,7 +1,6 @@
 package com.example.healthfunctionalfood.service.compare;
 
 import com.example.healthfunctionalfood.domain.product.Product;
-import com.example.healthfunctionalfood.domain.review.ExpertKeyword;
 import com.example.healthfunctionalfood.dto.CompareResponseDto;
 import com.example.healthfunctionalfood.repository.CustomExpertKeywordRepository;
 import com.example.healthfunctionalfood.repository.CustomExpertReviewRepository;
@@ -97,10 +96,10 @@ public class CompareServiceImpl implements CompareService{
         TreeMap<String, Long> prosTagTree = new TreeMap<>();
         TreeMap<String, Long> consTagTree = new TreeMap<>();
 
-        List<ExpertKeyword> expertKeyword = customExpertKeywordRepository.getExpertKeyword(product);
-        for (ExpertKeyword keyword : expertKeyword) {
-            log.info("{}", keyword.get);
-        }
+//        List<ExpertKeyword> expertKeyword = customExpertKeywordRepository.getExpertKeyword(product);
+//        for (ExpertKeyword keyword : expertKeyword) {
+//
+//        }
 
 
         return null;
