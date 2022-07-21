@@ -66,7 +66,7 @@ public class User extends TimeStamped {
         this.userName = name;
         this.nickname = nickname;
         this.socialType = socialType;
-        this.age = Integer.parseInt(age);
+        this.age = 0;
         this.gender = gender;
         this.phone = phone;
         this.plusfriends = plusfriends;

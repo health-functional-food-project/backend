@@ -3,6 +3,7 @@ package com.example.healthfunctionalfood.domain.review;
 import com.example.healthfunctionalfood.TimeStamped;
 import com.example.healthfunctionalfood.domain.product.Product;
 import com.example.healthfunctionalfood.domain.user.User;
+import com.example.healthfunctionalfood.dto.request.CustomerReviewRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,8 +28,10 @@ public class CustomerReview extends TimeStamped {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToMany(mappedBy = "customerReview",cascade = CascadeType.ALL)
-    private final List<CustomerKeyword> customerKeywords = new ArrayList<>();
+    private String keyword;
+
+//    @OneToMany(mappedBy = "customerReview",cascade = CascadeType.ALL)
+//    private final List<CustomerKeyword> customerKeywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "customerReview", cascade = CascadeType.ALL)
     private final List<CustomerLike> customerLikes = new ArrayList<>();
@@ -47,4 +50,27 @@ public class CustomerReview extends TimeStamped {
     private String cons;
 
     private Boolean exposureStatus;
+
+    @Builder
+    public CustomerReview(User user, Product product, Integer starRating, Boolean takingCheck, Boolean familyTakingCheck, String pros, String cons, Boolean exposureStatus, String keyword) {
+        this.user = user;
+        this.product = product;
+        this.starRating = starRating;
+        this.takingCheck = takingCheck;
+        this.familyTakingCheck = familyTakingCheck;
+        this.pros = pros;
+        this.cons = cons;
+        this.exposureStatus = exposureStatus;
+        this.keyword = keyword;
+    }
+
+    public void updateReview(CustomerReviewRequestDto.CreateReview updateReview) {
+        this.keyword = updateReview.getKeyword();
+        this.starRating = updateReview.getStarRating();
+        this.takingCheck = updateReview.getTakingCheck();
+        this.familyTakingCheck = updateReview.getFamilyTakingCheck();
+        this.pros = updateReview.getPros();
+        this.cons = updateReview.getCons();
+        this.exposureStatus = updateReview.getExposureStatus();
+    }
 }
