@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://local:3306/health2?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&sessionVariables=group_concat_max_len=8192&tinyInt1isBit=false&zeroDateTimeBehavior=convertToNull&useSSL=false
-    username: cos
-    password: cos1234
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
 
   jpa:
     properties:

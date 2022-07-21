@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,14 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@PropertySource(value = {"env.properties"})
 public class OAuth2Service {
 
-    @Value("8cf255fcb71f9b6d8a32a3ace3f34039")
+    @Value("${secrets.KAKAO_CLIENT_ID}")
     private String clientId;
-    @Value("Iit0399Yso4dzcFHRTUs7SHBVXeOFQls")
+    @Value("${secrets.KAKAO_CLIENT_SECRET}")
     private String clientSecret;
-    @Value("http://localhost:8080/oauth/callback/kakao")
+    @Value("${secrets.KAKAO_REDIRECT_URI}")
     private String redirectUri;
 
     private final JwtProvider jwtProvider;
@@ -133,7 +135,7 @@ public class OAuth2Service {
         String kakaoId = "KAKAO_" + jsonNode.get("id").asText();
         String email = jsonNode.get("kakao_account").get("email").asText();
         String gender = jsonNode.get("kakao_account").get("gender").asText();
-        String userName = jsonNode.get("kakao_account").get("name").asText();
+//        String ageRange = jsonNode.get("kakao_account").get("age_range").asText();
 //        String birthyear = jsonNode.get("kakao_account").get("birthyear").asText();
 //        String birthday = jsonNode.get("kakao_account").get("birthday").asText();
 //        String phone = jsonNode.get("kakao_account").get("phone_number").asText();
@@ -142,7 +144,7 @@ public class OAuth2Service {
                 .kakaoId(kakaoId)
                 .email(email)
                 .gender(gender)
-                .userName(userName)
+                .userName(null)
                 .dateOfBirth(null)
                 .build();
     }
