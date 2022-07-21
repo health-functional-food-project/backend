@@ -1,5 +1,7 @@
 package com.example.healthfunctionalfood.repository;
 
+import com.example.healthfunctionalfood.dto.HomeResponseDto;
+
 import java.util.List;
 
 public interface CustomExpertReviewRepository {
@@ -7,5 +9,7 @@ public interface CustomExpertReviewRepository {
     List<String> getIngredientsForCategory();
 
     List<String>getHealthConcernsForCategory();
+
+    List<HomeResponseDto.ExpertReview> getExpertReviewForMain();
 
 }
