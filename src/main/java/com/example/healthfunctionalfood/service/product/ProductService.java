@@ -5,4 +5,6 @@ import com.example.healthfunctionalfood.dto.response.ProductResponseDto;
 
 public interface ProductService {
     ProductResponseDto.SearchAndCount findAllProductSearchList(String search);
+
+    void addProductWishList(Long productId);
 }

@@ -3,6 +3,7 @@ package com.example.healthfunctionalfood.domain.product;
 import com.example.healthfunctionalfood.TimeStamped;
 import com.example.healthfunctionalfood.domain.user.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,10 @@ public class ProductWishList extends TimeStamped {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    @Builder
+    public ProductWishList(User user, Product product) {
+        this.user = user;
+        this.product = product;
+    }
 }
