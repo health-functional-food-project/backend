@@ -42,8 +42,6 @@ public class HomeResponseDto {
         private Image image;
 
         private Double starRating;
-
-        private Long reviewCount;
     }
 
     @Getter
@@ -116,9 +114,7 @@ public class HomeResponseDto {
 
         private String productName;
 
-        private Long starRating;
-
-        private Long reviewCount;
+        private Double customerReviewAvg;
 
         private String comment;
 
