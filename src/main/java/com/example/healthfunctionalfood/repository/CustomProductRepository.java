@@ -17,5 +17,8 @@ public interface CustomProductRepository {
 
     List<ProductRankingResponseDto.RankingItem> getRandomProduct(Pageable pageable);
 
+    List<Long> getIngredientRank(String ingredient);
+    List<Long> getHealthConcernRank(String healthConcern);
+
 
 }

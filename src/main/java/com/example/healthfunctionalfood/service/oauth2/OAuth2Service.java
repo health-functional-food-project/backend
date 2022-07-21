@@ -1,4 +1,4 @@
-package com.example.healthfunctionalfood.service;
+package com.example.healthfunctionalfood.service.oauth2;
 
 import com.example.healthfunctionalfood.dto.UserResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;

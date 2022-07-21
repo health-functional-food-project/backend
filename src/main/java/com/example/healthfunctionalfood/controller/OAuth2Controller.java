@@ -2,7 +2,7 @@ package com.example.healthfunctionalfood.controller;
 
 import com.example.healthfunctionalfood.advice.Success;
 import com.example.healthfunctionalfood.dto.UserResponseDto;
-import com.example.healthfunctionalfood.service.OAuth2Service;
+import com.example.healthfunctionalfood.service.oauth2.OAuth2Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
