@@ -29,7 +29,7 @@ public class OAuth2Service {
     private String clientId;
     @Value("Iit0399Yso4dzcFHRTUs7SHBVXeOFQls")
     private String clientSecret;
-    @Value("http:/localhost:8080/oauth2/callback/kakao")
+    @Value("http://localhost:8080/oauth/callback/kakao")
     private String redirectUri;
 
     private final JwtProvider jwtProvider;
@@ -78,11 +78,6 @@ public class OAuth2Service {
                 .nickname(savedUser.getNickname())
                 .userName(savedUser.getUserName())
                 .build();
-    }
-
-    // 인가 코드 받기
-    public String getKakaoCode() {
-        return "https://https://kauth.kakao.com/oauth/authorize?client_id=8cf255fcb71f9b6d8a32a3ace3f34039&redirect_uri=http:/localhost:8080/oauth/callback/kakao&response_type=code";
     }
 
 

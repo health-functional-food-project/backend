@@ -42,13 +42,6 @@ public class SecurityConfig {
                 .disable()
                 .httpBasic()
                 .disable();
-//        http.oauth2Login()
-//                .authorizationEndpoint()
-//                .baseUri("/oauth2/authorize")
-//                .and()
-//                .redirectionEndpoint()
-//                .baseUri("/oauth2/callback/*");
-//                .and()
 
         http.apply(new JwtSecurityConfig(jwtProvider));
 
