@@ -2,7 +2,6 @@ package com.example.healthfunctionalfood.service;
 
 import com.example.healthfunctionalfood.domain.user.SocialType;
 import com.example.healthfunctionalfood.domain.user.User;
-import com.example.healthfunctionalfood.dto.UserRequestDto;
 import com.example.healthfunctionalfood.dto.UserResponseDto;
 import com.example.healthfunctionalfood.global.jwt.JwtProvider;
 import com.example.healthfunctionalfood.global.utils.UserReader;
@@ -12,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,13 +23,14 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class OAuth2ServiceImpl implements OAuth2Service{
+@PropertySource(value = {"env.properties"})
+public class OAuth2ServiceImpl implements OAuth2Service {
 
-    @Value("8cf255fcb71f9b6d8a32a3ace3f34039")
+    @Value("${secrets.KAKAO_CLIENT_ID}")
     private String clientId;
-    @Value("Iit0399Yso4dzcFHRTUs7SHBVXeOFQls")
+    @Value("${secrets.KAKAO_CLIENT_SECRET}")
     private String clientSecret;
-    @Value("http:/localhost:8080/oauth2/callback/kakao")
+    @Value("${secrets.KAKAO_REDIRECT_URI}")
     private String redirectUri;
 
     private final JwtProvider jwtProvider;
@@ -37,8 +38,7 @@ public class OAuth2ServiceImpl implements OAuth2Service{
     private final UserStore userStore;
     private final PasswordEncoder passwordEncoder;
 
-    @Override
-    public UserResponseDto.UserInfoWithJwt kakaoLogin(UserRequestDto.KakaoUserDto kakaoUserDto) {
+    public UserResponseDto.UserInfoWithJwt kakaoLogin(UserResponseDto.KakaoUserDto kakaoUserDto) {
 
         Optional<User> userOptional = userReader.findByKakaoId(kakaoUserDto.getKakaoId());
 
@@ -81,12 +81,8 @@ public class OAuth2ServiceImpl implements OAuth2Service{
                 .build();
     }
 
-    // 인가 코드 받기
-
-
 
     // access token 받기
-    @Override
     public String getAccessTokenByCode(String code) throws JsonProcessingException {
 
         HttpHeaders headers = new HttpHeaders();
@@ -118,7 +114,6 @@ public class OAuth2ServiceImpl implements OAuth2Service{
         return jsonNode.get("access_token").asText();
     }
 
-    @Override
     public UserResponseDto.KakaoUserDto getUserInfoByAccessToken(String accessToken) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
@@ -139,7 +134,7 @@ public class OAuth2ServiceImpl implements OAuth2Service{
         String kakaoId = "KAKAO_" + jsonNode.get("id").asText();
         String email = jsonNode.get("kakao_account").get("email").asText();
         String gender = jsonNode.get("kakao_account").get("gender").asText();
-        String userName = jsonNode.get("kakao_account").get("name").asText();
+//        String ageRange = jsonNode.get("kakao_account").get("age_range").asText();
 //        String birthyear = jsonNode.get("kakao_account").get("birthyear").asText();
 //        String birthday = jsonNode.get("kakao_account").get("birthday").asText();
 //        String phone = jsonNode.get("kakao_account").get("phone_number").asText();
@@ -148,11 +143,8 @@ public class OAuth2ServiceImpl implements OAuth2Service{
                 .kakaoId(kakaoId)
                 .email(email)
                 .gender(gender)
-                .userName(userName)
+                .userName(null)
                 .dateOfBirth(null)
                 .build();
     }
-
-
-
 }

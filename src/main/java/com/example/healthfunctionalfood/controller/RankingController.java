@@ -26,38 +26,30 @@ public class RankingController {
         return productRankingService.getRankingHome(pageable);
     }
 
+    // 전문가 리뷰 랭킹 페이징
     @GetMapping("/expert-review")
     public String getExpertRanking(Pageable pageable) {
         productRankingService.getExpertRanking(pageable);
         return "success";
     }
 
+    // 성분 랭킹 페이징
     @GetMapping("/ingredient")
     public String getIngredientsRanking(@RequestParam("ingredient") String ingredient, Pageable pageable) {
         productRankingService.getIngredientsRanking(ingredient, pageable);
         return "success";
     }
 
+    // 건강 고민 페이징
     @GetMapping("/health-concern")
     public String getHealthConcernRanking(@RequestParam("health-concern") String healthConcern, Pageable pageable) {
         productRankingService.getHealthConcernRanking(healthConcern, pageable);
         return "success";
     }
 
+    // 랜덤 건강기능식품 페이징
     @GetMapping("/random")
     private List<ProductRankingResponseDto.RankingItem> getRandomProduct(Pageable pageable) {
         return productRankingService.getRandomProduct(pageable);
     }
-
-    @GetMapping("/test")
-    public String getTest() {
-        productRankingService.getHealthConcernCategory();
-        return "success";
-    }
-
-//    @GetMapping("/test2")
-//    public String getTest2() {
-//        productRankingService.getIngredientsCategory2();
-//        return "success";
-//    }
 }

@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/health2?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&sessionVariables=group_concat_max_len=8192&tinyInt1isBit=false&zeroDateTimeBehavior=convertToNull&useSSL=false
-    username: cos
-    password: cos1234
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
 
   jpa:
     properties:
@@ -21,10 +21,10 @@ spring:
       client:
         registration:
           kakao:
-            client-id: 8cf255fcb71f9b6d8a32a3ace3f34039
+            client-id: ${secrets.KAKAO_CLIENT_ID}
             client-name: Kakao
-            client-secret: Iit0399Yso4dzcFHRTUs7SHBVXeOFQls
-            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
+            client-secret: ${secrets.KAKAO_CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/oauth/callback/{registrationId}"
             scope: account_email
             authorization-grant-type: authorization_code
             client-authentication-method: POST
@@ -35,11 +35,5 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user_name_attribute: id
 
-app:
-  cors:
-    allowedOrigins: http://localhost:3000,http://localhost:8080
-  oauth2:
-    authorized-redirect-uris:
-      - http://localhost:8080/oauth2/redirect
-#server:
-#  port: 80
+server:
+  port: 80
