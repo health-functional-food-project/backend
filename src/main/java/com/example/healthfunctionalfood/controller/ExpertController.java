@@ -21,4 +21,12 @@ public class ExpertController {
         expertService.addExpertReview(productId, createReview);
         return new ResponseEntity<>(new Success("전문가 리뷰 등록 성공!",""), HttpStatus.OK);
     }
+
+    @PutMapping("{productId}/expert-review/{expertReviewId}")
+    public ResponseEntity<Success> ExpertReviewModify(@PathVariable Long productId,
+                                                      @PathVariable Long expertReviewId,
+                                                      @RequestBody ExpertReviewRequestDto.CreateReview createReview){
+        expertService.modifyExpertReview(productId, expertReviewId, createReview);
+        return new ResponseEntity<>(new Success("전문가 리뷰 수정 완료!", ""),HttpStatus.OK);
+    }
 }

@@ -45,4 +45,22 @@ public class ExpertServiceImpl implements ExpertService{
             throw new ApiRequestException("전문가가 아닙니다.");
         }
     }
+
+    @Override
+    @Transactional
+    public void modifyExpertReview(Long productId, Long expertReviewId, ExpertReviewRequestDto.CreateReview createReview) {
+        // 로그인 미완성으로 임시 하드코딩
+        // 카카오 로그인으로 사용자 정보 받는 로직 추가 필요
+        User user = userRepository.findById(1L).get();
+        Optional<Product> productOptional = Optional.of(productRepository.findById(productId).orElseThrow(()
+                ->new ApiRequestException("존재하지 않는 상품입니다.")
+        ));
+
+        Optional<ExpertReview> expertReviewOptional = Optional.ofNullable(expertReviewRepository.findByIdAndUserId(expertReviewId, user.getId()).orElseThrow(
+                () -> new ApiRequestException("내가 작성한 글이 아니거나 존재하지 않는 리뷰입니다.")));
+
+        if(user.getRole()==Role.EXPERT){
+            expertReviewOptional.get().updateExpertReview(createReview);
+        }
+    }
 }

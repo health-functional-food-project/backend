@@ -4,6 +4,7 @@ package com.example.healthfunctionalfood.domain.review;
 import com.example.healthfunctionalfood.TimeStamped;
 import com.example.healthfunctionalfood.domain.product.Product;
 import com.example.healthfunctionalfood.domain.user.User;
+import com.example.healthfunctionalfood.dto.request.ExpertReviewRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -50,5 +51,14 @@ public class ExpertReview extends TimeStamped {
         this.cons = cons;
         this.pros = pros;
         this.precautions = precautions;
+    }
+
+    public void updateExpertReview(ExpertReviewRequestDto.CreateReview createReview) {
+        this.drugStore = createReview.getDrugStore();
+        this.starRating = createReview.getStarRating();
+        this.comment = createReview.getComment();
+        this.cons = createReview.getCons();
+        this.pros = createReview.getPros();
+        this.precautions = createReview.getPrecautions();
     }
 }
