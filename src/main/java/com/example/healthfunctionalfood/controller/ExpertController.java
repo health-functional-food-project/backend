@@ -29,4 +29,11 @@ public class ExpertController {
         expertService.modifyExpertReview(productId, expertReviewId, createReview);
         return new ResponseEntity<>(new Success("전문가 리뷰 수정 완료!", ""),HttpStatus.OK);
     }
+
+    @DeleteMapping("{productId}/expert-review/{expertReviewId}")
+    public ResponseEntity<Success> ExpertReviewRemove(@PathVariable Long productId,
+                                                      @PathVariable Long expertReviewId){
+        expertService.removeExpertReview(productId, expertReviewId);
+        return new ResponseEntity<>(new Success("전문가 리뷰 삭제 완료!",""),HttpStatus.OK);
+    }
 }
