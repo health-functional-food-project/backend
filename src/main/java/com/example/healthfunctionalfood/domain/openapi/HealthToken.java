@@ -29,4 +29,20 @@ public class HealthToken extends TimeStamped {
 
     @Lob
     private String token;
+
+    @Builder
+    public HealthToken(String cxId, User user, String reqTxId, String txId, String token) {
+        this.cxId = cxId;
+        this.user = user;
+        this.reqTxId = reqTxId;
+        this.txId = txId;
+        this.token = token;
+    }
+
+    public void updateHealthToken(String cxId, String reqTxId, String token, String txId) {
+        this.cxId = cxId;
+        this.reqTxId = reqTxId;
+        this.token = token;
+        this.txId = txId;
+    }
 }
