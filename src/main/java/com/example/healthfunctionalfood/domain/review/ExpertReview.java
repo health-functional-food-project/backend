@@ -4,6 +4,7 @@ package com.example.healthfunctionalfood.domain.review;
 import com.example.healthfunctionalfood.TimeStamped;
 import com.example.healthfunctionalfood.domain.product.Product;
 import com.example.healthfunctionalfood.domain.user.User;
+import com.example.healthfunctionalfood.dto.request.ExpertReviewRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,14 +29,36 @@ public class ExpertReview extends TimeStamped {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String userName;
-
-    private String pharmacy;
+    private String drugStore;
 
     private double starRating;
 
     private String comment;
 
-    @OneToMany(mappedBy = "expertReview",cascade = CascadeType.ALL)
-    private final List<ExpertKeyword> expertKeywords = new ArrayList<>();
+    private String cons;
+
+    private String pros;
+
+    private String precautions;
+
+    @Builder
+    public ExpertReview(Product product, User user, String drugStore, double starRating, String comment, String cons, String pros, String precautions) {
+        this.product = product;
+        this.user = user;
+        this.drugStore = drugStore;
+        this.starRating = starRating;
+        this.comment = comment;
+        this.cons = cons;
+        this.pros = pros;
+        this.precautions = precautions;
+    }
+
+    public void updateExpertReview(ExpertReviewRequestDto.CreateReview createReview) {
+        this.drugStore = createReview.getDrugStore();
+        this.starRating = createReview.getStarRating();
+        this.comment = createReview.getComment();
+        this.cons = createReview.getCons();
+        this.pros = createReview.getPros();
+        this.precautions = createReview.getPrecautions();
+    }
 }
