@@ -1,4 +1,4 @@
-package com.example.healthfunctionalfood.service;
+package com.example.healthfunctionalfood.service.oauth2;
 
 import com.example.healthfunctionalfood.domain.user.SocialType;
 import com.example.healthfunctionalfood.domain.user.User;

@@ -133,14 +133,27 @@ public class CustomProductRepositoryImpl implements CustomProductRepository{
                 .fetch();
     }
 
-//    public List<HomeResponseDto.ExpertRecommend> getExpertRecommend(List<Long> productIdList) {
-////        QProduct product = QProduct.product;
-////
-////        return jpaQueryFactory.select()
-////                .from(product)
-////                .where(product.id.eqAny(productIdList))
-//        return null;
-//    }
+    @Override
+    public List<Long> getIngredientRank(String ingredient) {
+        QProduct product = QProduct.product;
+
+        return jpaQueryFactory.select(product.id)
+                .from(product)
+                .where(product.primaryIngredients.contains(ingredient).and(product.expertReviewAvg.isNotNull()))
+                .orderBy(product.expertReviewAvg.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<Long> getHealthConcernRank(String healthConcern) {
+        QProduct product = QProduct.product;
+
+        return jpaQueryFactory.select(product.id)
+                .from(product)
+                .where(product.funcContent.contains(healthConcern).and(product.expertReviewAvg.isNotNull()))
+                .orderBy(product.expertReviewAvg.desc())
+                .fetch();
+    }
 
 
 }
