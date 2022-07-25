@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
 
 public class CompareResponseDto {
 
@@ -25,9 +25,9 @@ public class CompareResponseDto {
     @AllArgsConstructor
     public static class ProductContainer {
 
-        private CompareProduct product;
+        private CompareProduct productDetail;
 
-        private CompareExpertReview expertReview;
+        private CompareExpertReview expertReviewSummary;
 
         private Double customerStarRatingAvg;
 
@@ -69,10 +69,18 @@ public class CompareResponseDto {
 
         private Double starRatingAvg;
 
-        private TreeMap<String, Long> prosTagList;
+        private Map<String, Long> prosTagMap;
 
-        private TreeMap<String, Long> consTagList;
+        private Map<String, Long> consTagMap;
 
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class prosConsTag {
+        private String pros;
+        private String cons;
     }
 
 

@@ -1,11 +1,14 @@
 package com.example.healthfunctionalfood.controller;
 
-import com.example.healthfunctionalfood.repository.CustomProductRepositoryImpl;
+import com.example.healthfunctionalfood.advice.Success;
 import com.example.healthfunctionalfood.service.compare.CompareServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,18 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/compare")
 public class CompareController {
 
-    private final CustomProductRepositoryImpl customProductRepository;
     private final CompareServiceImpl compareService;
 
-    @GetMapping("/test")
-    public String kakaoLogin() {
+    @GetMapping("")
+    public ResponseEntity<Success> getCompare(@RequestParam("firstProductId") Long firstProductId,
+                                              @RequestParam("secondProductId") Long secondProductId) {
 
-//        List<Product> productList = customProductRepository.getIngredientRank("비타민 D");
-//        for (Product product : productList) {
-//            log.info("getProductName = {}", product.getProductName());
-//        }
-        compareService.getProductDetail(2L);
-
-        return "success";
+        return new ResponseEntity<>(new Success("비교하기 데이터 ", compareService.getCompareProduct(firstProductId, secondProductId)), HttpStatus.OK);
     }
 }

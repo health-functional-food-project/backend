@@ -1,6 +1,8 @@
 package com.example.healthfunctionalfood.repository;
 
+import com.example.healthfunctionalfood.domain.product.QProduct;
 import com.example.healthfunctionalfood.domain.review.QExpertReview;
+import com.example.healthfunctionalfood.dto.CompareResponseDto;
 import com.example.healthfunctionalfood.dto.HomeResponseDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
@@ -48,6 +50,18 @@ public class CustomExpertReviewRepositoryImpl implements CustomExpertReviewRepos
 //                .join(expertReview, QProduct.product.expertReviewList)
                 .orderBy(Expressions.numberTemplate(Double.class,"rand()").asc())
                 .limit(12)
+                .fetch();
+    }
+
+    @Override
+    public List<CompareResponseDto.prosConsTag> getAllProsConsTag(Long productId) {
+        QExpertReview expertReview = QExpertReview.expertReview;
+
+        return jpaQueryFactory.select(Projections.constructor(CompareResponseDto.prosConsTag.class,
+                expertReview.pros, expertReview.cons))
+                .from(expertReview)
+                .join(expertReview.product, QProduct.product)
+                .where(expertReview.product.id.eq(productId))
                 .fetch();
     }
 

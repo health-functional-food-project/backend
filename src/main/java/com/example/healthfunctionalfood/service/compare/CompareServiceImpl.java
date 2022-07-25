@@ -2,7 +2,6 @@ package com.example.healthfunctionalfood.service.compare;
 
 import com.example.healthfunctionalfood.domain.product.Product;
 import com.example.healthfunctionalfood.dto.CompareResponseDto;
-import com.example.healthfunctionalfood.repository.CustomExpertKeywordRepository;
 import com.example.healthfunctionalfood.repository.CustomExpertReviewRepository;
 import com.example.healthfunctionalfood.repository.CustomProductRepository;
 import com.example.healthfunctionalfood.repository.ProductRepository;
@@ -10,9 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -22,24 +20,34 @@ public class CompareServiceImpl implements CompareService{
     private final CustomProductRepository customProductRepository;
     public final ProductRepository productRepository;
     public final CustomExpertReviewRepository customExpertReviewRepository;
-    private final CustomExpertKeywordRepository customExpertKeywordRepository;
 
     public CompareResponseDto.MainContainer getCompareProduct(Long firstProductId, Long secondProductId) {
 
-        return null;
+        CompareResponseDto.ProductContainer firstProductInfo = getProductInfo(firstProductId);
+        CompareResponseDto.ProductContainer secondProductInfo = getProductInfo(secondProductId);
+
+        return CompareResponseDto.MainContainer.builder()
+                .firstProductForCompare(firstProductInfo)
+                .secondProductForCompare(secondProductInfo)
+                .build();
 
     }
 
     public CompareResponseDto.ProductContainer getProductInfo(Long productId) {
+        Product product = productRepository.findById(productId).get();
 
+        CompareResponseDto.CompareProduct productDetail = getProductDetail(product);
+        CompareResponseDto.CompareExpertReview expertReviewSummary = getExpertReviewSummary(product);
 
-        return null;
+        return CompareResponseDto.ProductContainer.builder()
+                .productDetail(productDetail)
+                .expertReviewSummary(expertReviewSummary)
+                .customerStarRatingAvg(product.getCustomerReviewAvg())
+                .build();
 
     }
 
-    public CompareResponseDto.CompareProduct getProductDetail(Long productId) {
-
-        Product product = productRepository.findById(productId).get();
+    public CompareResponseDto.CompareProduct getProductDetail(Product product) {
 
         // 성분에 관한 product 랭킹
         String[] ingredientArr = product.getPrimaryIngredients().split(",");
@@ -79,7 +87,8 @@ public class CompareServiceImpl implements CompareService{
                     .award(award)
                     .build());
         }
-        CompareResponseDto.CompareProduct compareProduct = CompareResponseDto.CompareProduct.builder()
+
+        return CompareResponseDto.CompareProduct.builder()
                 .productId(product.getId())
                 .companyName(product.getCompanyName())
                 .productName(product.getProductName())
@@ -87,8 +96,6 @@ public class CompareServiceImpl implements CompareService{
                 .ingredientRankingList(ingredientRankingList)
                 .healthConcernRankingList(healthConcernRankingList)
                 .build();
-
-        return compareProduct;
     }
 
     public CompareResponseDto.CompareExpertReview getExpertReviewSummary(Product product) {
@@ -96,12 +103,30 @@ public class CompareServiceImpl implements CompareService{
         TreeMap<String, Long> prosTagTree = new TreeMap<>();
         TreeMap<String, Long> consTagTree = new TreeMap<>();
 
-//        List<ExpertKeyword> expertKeyword = customExpertKeywordRepository.getExpertKeyword(product);
-//        for (ExpertKeyword keyword : expertKeyword) {
-//
-//        }
+        List<CompareResponseDto.prosConsTag> allProsConsTag = customExpertReviewRepository.getAllProsConsTag(product.getId());
+
+        for (CompareResponseDto.prosConsTag prosConsTag : allProsConsTag) {
+            String[] prosSplit = prosConsTag.getPros().split(",");
+            String[] consSplit = prosConsTag.getCons().split(",");
+
+            for (String pros : prosSplit) {
+                consTagTree.put(pros, !prosTagTree.containsKey(pros) ? 1L : prosTagTree.get(pros) +1L);
+            }
+            for (String cons : consSplit) {
+                prosTagTree.put(cons, !consTagTree.containsKey(cons) ? 1L : consTagTree.get(cons) + 1L);
+            }
+        }
+
+        List<Map.Entry<String, Long>> prosTageEntries = prosTagTree.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).toList();
+        Map<String, Long> prosTagMap = prosTageEntries.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        List<Map.Entry<String, Long>> consTagEntries = consTagTree.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).toList();
+        Map<String, Long> consTagMap = consTagEntries.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
 
-        return null;
+        return CompareResponseDto.CompareExpertReview.builder()
+                .starRatingAvg(product.getExpertReviewAvg())
+                .prosTagMap(prosTagMap)
+                .consTagMap(consTagMap)
+                .build();
     }
 }
