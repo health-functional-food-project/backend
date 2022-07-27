@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,6 +42,9 @@ public class ExpertServiceImpl implements ExpertService{
         if(user.getRole() == Role.EXPERT){
             ExpertReview saveExpertReview = createReview.toEntity(productOptional.get(), user);
             expertReviewRepository.save(saveExpertReview);
+
+            List<ExpertReview> expertReviewList = expertReviewRepository.findByProductId(productId);
+            addExpertReviewAvg(expertReviewList, productOptional);
         }else {
             throw new ApiRequestException("전문가가 아닙니다.");
         }
@@ -61,6 +65,9 @@ public class ExpertServiceImpl implements ExpertService{
 
         if(user.getRole()==Role.EXPERT){
             expertReviewOptional.get().updateExpertReview(createReview);
+
+            List<ExpertReview> expertReviewList = expertReviewRepository.findByProductId(productId);
+            addExpertReviewAvg(expertReviewList, productOptional);
         }
     }
 
@@ -79,6 +86,20 @@ public class ExpertServiceImpl implements ExpertService{
 
         if(user.getRole().equals(Role.EXPERT)){
             expertReviewRepository.deleteById(expertReviewId);
+
+            List<ExpertReview> expertReviewList = expertReviewRepository.findByProductId(productId);
+            addExpertReviewAvg(expertReviewList, productOptional);
         }
+    }
+
+    void addExpertReviewAvg(List<ExpertReview> expertReviewList, Optional<Product> productOptional) {
+        double expertReviewSum = 0.0;
+        for (ExpertReview expertReview : expertReviewList) {
+            if(expertReview != null){
+                expertReviewSum += expertReview.getStarRating();
+            }
+        }
+        double expertReviewAvg = expertReviewSum / expertReviewList.size();
+        productOptional.get().updateExpertReviewAge(expertReviewAvg);
     }
 }
