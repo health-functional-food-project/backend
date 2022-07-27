@@ -93,4 +93,31 @@ public class Diagnosis extends TimeStamped {
 
     //복약 지도
     private String medicationGuidance;
+
+    @Builder
+    public Diagnosis(User user, Address address, LocalDateTime treatmentStartDate, int dosingDay, int visitCount, String typeOfTreatment, String numberOfPrescriptions, String drugCode, String drugName, String ingredientInfo, String professionalGeneral, String singleCompound, String importer, String vendor, String formulation, String routeOfAdministration, String ministryOfWelfareClassification, String atcInfo, String kpicInfo, String efficacyEffect, String dosage, String precautions, String medicationGuidance) {
+        this.user = user;
+        this.address = address;
+        this.treatmentStartDate = treatmentStartDate;
+        this.dosingDay = dosingDay;
+        this.visitCount = visitCount;
+        this.typeOfTreatment = typeOfTreatment;
+        this.numberOfPrescriptions = numberOfPrescriptions;
+        this.drugCode = drugCode;
+        this.drugName = drugName;
+        this.ingredientInfo = ingredientInfo;
+        this.professionalGeneral = professionalGeneral;
+        this.singleCompound = singleCompound;
+        this.importer = importer;
+        this.vendor = vendor;
+        this.formulation = formulation;
+        this.routeOfAdministration = routeOfAdministration;
+        this.ministryOfWelfareClassification = ministryOfWelfareClassification;
+        this.atcInfo = atcInfo;
+        this.kpicInfo = kpicInfo;
+        this.efficacyEffect = efficacyEffect;
+        this.dosage = dosage;
+        this.precautions = precautions;
+        this.medicationGuidance = medicationGuidance;
+    }
 }
