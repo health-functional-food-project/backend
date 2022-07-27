@@ -57,4 +57,35 @@ public class HealthHistory extends TimeStamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Builder
+    public HealthHistory(int year, String checkUpDate, String code, String location, String description, String kidney, String weight, String waistCircumference, String bodyMassIndex, String vision, String ear, String bloodPressure, String urineProtein, String hemoglobin, String fastingBloodSugar, String totalCholesterol, String HDLCholesterol, String triglycerides, String LDLCholesterol, String serumCreatinine, String gfr, String sgot, String sgpt, String yGtp, String PTCD, String osteoporosis, User user) {
+        this.year = year;
+        this.checkUpDate = checkUpDate;
+        this.code = code;
+        this.location = location;
+        this.description = description;
+        this.kidney = kidney;
+        this.weight = weight;
+        this.waistCircumference = waistCircumference;
+        this.bodyMassIndex = bodyMassIndex;
+        this.Vision = vision;
+        this.ear = ear;
+        this.BloodPressure = bloodPressure;
+        this.urineProtein = urineProtein;
+        this.hemoglobin = hemoglobin;
+        this.fastingBloodSugar = fastingBloodSugar;
+        this.totalCholesterol = totalCholesterol;
+        this.HDLCholesterol = HDLCholesterol;
+        this.triglycerides = triglycerides;
+        this.LDLCholesterol = LDLCholesterol;
+        this.serumCreatinine = serumCreatinine;
+        this.Gfr = gfr;
+        this.Sgot = sgot;
+        this.Sgpt = sgpt;
+        this.yGtp = yGtp;
+        this.PTCD = PTCD;
+        this.osteoporosis = osteoporosis;
+        this.user = user;
+    }
 }
