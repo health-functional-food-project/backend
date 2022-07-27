@@ -83,6 +83,9 @@ public class Product extends TimeStamped {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private final List<ExpertReview> expertReviewList = new ArrayList<>();
 
+    public void updateExpertReviewAge(double expertReviewAvg) {
+        this.expertReviewAvg = expertReviewAvg;
+
     public void updateCustomerReviewAge(double customerReviewAvg) {
         this.customerReviewAvg = customerReviewAvg;
     }
