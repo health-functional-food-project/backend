@@ -38,13 +38,16 @@ public class CustomerServiceImpl implements CustomerService{
     public Long addCustomerReview(Long productId, CustomerReviewRequestDto.CreateReview createReview) {
         // 로그인 미완성으로 임시 하드코딩
         // 카카오 로그인으로 사용자 정보 받는 로직 추가 필요
-        User userEntity = userRepository.findById(1L).get();
+        User user = userRepository.findById(1L).get();
 
-        Product productEntity = productRepository.findById(productId).orElseThrow(() ->
-                new ApiRequestException("존재하지 않는 제품입니다."));
-        CustomerReview saveCustomerReview = createReview.toEntity(productEntity, userEntity);
+        Optional<Product> productOptional = Optional.ofNullable(productRepository.findById(productId).orElseThrow(() ->
+                new ApiRequestException("존재하지 않는 제품입니다.")));
+        CustomerReview saveCustomerReview = createReview.toEntity(productOptional.get(), user);
 
         CustomerReview customer = customerReviewRepository.save(saveCustomerReview);
+
+        List<CustomerReview> customerReviewList = customerReviewRepository.findByProductId(productId);
+        addCustomerReviewAvg(customerReviewList, productOptional);
         return customer.getId();
     }
 
@@ -53,12 +56,15 @@ public class CustomerServiceImpl implements CustomerService{
     public void modifyCustomerReview(Long productId, CustomerReviewRequestDto.CreateReview updateReview, Long customerReviewId) {
         // 로그인 미완성으로 임시 하드코딩
         // 본인이 쓴글인지, 존재하는 제품인지, 존재하는 리뷰인지 체크 필요
-        User userEntity = userRepository.findById(1L).get();
+        User user = userRepository.findById(1L).get();
 
-        Product productEntity = productRepository.findById(productId).orElseThrow(() ->
-                new ApiRequestException("존재하지 않는 제품입니다."));
+        Optional<Product> productOptional = Optional.ofNullable(productRepository.findById(productId).orElseThrow(() ->
+                new ApiRequestException("존재하지 않는 제품입니다.")));
         CustomerReview customerReview = customerReviewRepository.findById(customerReviewId).get();
         customerReview.updateReview(updateReview);
+
+        List<CustomerReview> customerReviewList = customerReviewRepository.findByProductId(productId);
+        addCustomerReviewAvg(customerReviewList, productOptional);
     }
 
     @Override
@@ -66,11 +72,14 @@ public class CustomerServiceImpl implements CustomerService{
     public void removeCustomerReview(Long productId, Long customerReviewId) {
         // 로그인 미완성으로 임시 하드코딩
         // 본인이 쓴글인지, 존재하는 제품인지, 존재하는 리뷰인지 체크 필요
-        User userEntity = userRepository.findById(1L).get();
+        User user = userRepository.findById(1L).get();
 
-        Product productEntity = productRepository.findById(productId).orElseThrow(() ->
-                new ApiRequestException("존재하지 않는 제품입니다."));
+        Optional<Product> productOptional = Optional.ofNullable(productRepository.findById(productId).orElseThrow(() ->
+                new ApiRequestException("존재하지 않는 제품입니다.")));
         customerReviewRepository.deleteById(customerReviewId);
+
+        List<CustomerReview> customerReviewList = customerReviewRepository.findByProductId(productId);
+        addCustomerReviewAvg(customerReviewList, productOptional);
     }
 
     @Override
@@ -131,5 +140,16 @@ public class CustomerServiceImpl implements CustomerService{
         }else {
             throw new ApiRequestException("좋아요 하지 않은 리뷰입니다.");
         }
+    }
+
+    void addCustomerReviewAvg(List<CustomerReview> customerReviewList, Optional<Product> productEntity) {
+        double customerReviewSum = 0.0;
+        for (CustomerReview review : customerReviewList) {
+            if (review != null) {
+                customerReviewSum += review.getStarRating();
+            }
+        }
+        double customerReviewAvg = customerReviewSum / customerReviewList.size();
+        productEntity.get().updateCustomerReviewAge(customerReviewAvg);
     }
 }
