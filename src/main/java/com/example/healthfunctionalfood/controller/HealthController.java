@@ -41,4 +41,10 @@ public class HealthController {
         List<MyPageResponseDto.Treatment> treatmentList = healthService.addDiagnosis(userInfo);
         return new ResponseEntity<>(new Success("진료 및 투악정보 조회 성공!",treatmentList),HttpStatus.OK);
     }
+
+    @PostMapping("/health-check-up")
+    ResponseEntity<Success> healthCheckAdd(@RequestBody HealthRequestDto.userInfo userInfo) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, IOException, ParseException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
+        healthService.addHealthCheck(userInfo);
+        return new ResponseEntity<>(new Success("건강검진내역 조회 성공!",""),HttpStatus.OK);
+    }
 }
