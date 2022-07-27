@@ -85,5 +85,8 @@ public class Product extends TimeStamped {
 
     public void updateExpertReviewAge(double expertReviewAvg) {
         this.expertReviewAvg = expertReviewAvg;
+
+    public void updateCustomerReviewAge(double customerReviewAvg) {
+        this.customerReviewAvg = customerReviewAvg;
     }
 }
