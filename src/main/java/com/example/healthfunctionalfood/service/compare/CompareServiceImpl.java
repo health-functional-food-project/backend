@@ -4,7 +4,7 @@ import com.example.healthfunctionalfood.domain.product.Product;
 import com.example.healthfunctionalfood.dto.CompareResponseDto;
 import com.example.healthfunctionalfood.repository.CustomExpertReviewRepository;
 import com.example.healthfunctionalfood.repository.CustomProductRepository;
-import com.example.healthfunctionalfood.repository.ProductRepository;
+import com.example.healthfunctionalfood.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
 package com.example.healthfunctionalfood.repository.product;
 
 import com.example.healthfunctionalfood.domain.product.ProductSearch;
+import com.example.healthfunctionalfood.repository.CustomProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -8,15 +9,13 @@ import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Component
 @Slf4j
-public class CustomProductRepositoryImpl implements CustomProductRepository{
+public class CustomProductSearchRepositoryImpl implements CustomProductSearchRepository {
 
     private final ElasticsearchOperations elasticsearchOperations;
 
