@@ -1,6 +1,7 @@
 package com.example.healthfunctionalfood;
 
 import com.example.healthfunctionalfood.repository.product.ProductSearchRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
