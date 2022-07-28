@@ -10,4 +10,8 @@ public interface ProductService {
     void addProduct();
 
     ProductResponseDto.SearchAndCount findAllProductSearchListElk(String productName);
+
+    void addProductWishList(Long productId);
+
+    void removeProductWishList(Long productId);
 }

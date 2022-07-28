@@ -34,4 +34,16 @@ public class ProductController {
         ProductResponseDto.SearchAndCount productSearchList = productService.findAllProductSearchListElk(search.getProductName());
         return new ResponseEntity<>(new Success("상품 조회 완료!", productSearchList), HttpStatus.OK);
     }
+
+    @PostMapping("/{productId}/wishList")
+    public ResponseEntity<Success> productWishListAdd(@PathVariable Long productId){
+        productService.addProductWishList(productId);
+        return new ResponseEntity<>(new Success("찜하기 성공!", ""),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{productId}/wishList")
+    public ResponseEntity<Success> productWishListRemove(@PathVariable Long productId){
+        productService.removeProductWishList(productId);
+        return new ResponseEntity<>(new Success("찜하기 취소 성공!",""),HttpStatus.OK);
+    }
 }
