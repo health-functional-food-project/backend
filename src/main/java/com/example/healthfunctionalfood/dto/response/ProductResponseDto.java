@@ -1,6 +1,7 @@
 package com.example.healthfunctionalfood.dto.response;
 
 import com.example.healthfunctionalfood.domain.product.Product;
+import com.example.healthfunctionalfood.domain.product.ProductSearch;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,6 +35,12 @@ public class ProductResponseDto {
             this.productName = product.getProductName();
             this.expertReviewAvg = product.getExpertReviewAvg();
             this.customerReviewAvg = product.getCustomerReviewAvg();
+        }
+
+        public Search(ProductSearch productSearch) {
+            this.productId = productSearch.getId();
+            this.companyName = productSearch.getCompanyName();
+            this.productName = productSearch.getProductName();
         }
     }
 

@@ -28,6 +28,25 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    // elasticsearch
+    implementation 'org.springframework.data:spring-data-elasticsearch:4.4.0'
+    implementation 'org.elasticsearch:elasticsearch:7.16.2'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.16.2'
+
+    // jackson-core
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.1'
+
     //querydsl 추가
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
@@ -39,6 +58,7 @@ dependencies {
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
