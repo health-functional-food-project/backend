@@ -6,7 +6,7 @@ import com.example.healthfunctionalfood.dto.ProductRankingResponseDto;
 import com.example.healthfunctionalfood.repository.CustomCustomerReviewRepository;
 import com.example.healthfunctionalfood.repository.CustomExpertReviewRepository;
 import com.example.healthfunctionalfood.repository.CustomProductRepository;
-import com.example.healthfunctionalfood.repository.ProductRepository;
+import com.example.healthfunctionalfood.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
