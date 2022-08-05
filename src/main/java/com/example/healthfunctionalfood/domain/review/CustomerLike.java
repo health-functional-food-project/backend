@@ -21,4 +21,10 @@ public class CustomerLike extends TimeStamped {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private CustomerReview customerReview;
+
+    @Builder
+    public CustomerLike(User user, CustomerReview customerReview) {
+        this.user = user;
+        this.customerReview = customerReview;
+    }
 }

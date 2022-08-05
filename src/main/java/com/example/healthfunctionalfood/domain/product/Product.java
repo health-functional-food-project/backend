@@ -17,6 +17,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "product")
+@Builder
+@AllArgsConstructor
 public class Product extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,4 +84,12 @@ public class Product extends TimeStamped {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private final List<ExpertReview> expertReviewList = new ArrayList<>();
+
+    public void updateExpertReviewAge(double expertReviewAvg) {
+        this.expertReviewAvg = expertReviewAvg;
+    }
+
+    public void updateCustomerReviewAge(double customerReviewAvg) {
+        this.customerReviewAvg = customerReviewAvg;
+    }
 }

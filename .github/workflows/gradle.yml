@@ -27,8 +27,50 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'
+        distribution: 'adopt'
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      run: ./gradlew build
+
+    - name: Get current time
+      uses: 1466587594/get-current-time@v3
+      id: current-time
       with:
-        arguments: build
+        format: YYYY-MM-DDTHH-mm-ss
+        utcOffset: "+09:00"
+
+    - name: Make Directory
+      run: mkdir deploy
+
+    - name: Copy script
+      run: cp ./scripts/*.sh ./deploy/
+
+    - name: Copy appspec.yml
+      run: cp appspec.yml ./deploy/
+
+    - name: Make zip file
+      run: zip -r -qq -j ./$GITHUB_SHA.zip ./deploy/
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+      env:
+        kakao.client-id: ${{secrets.KAKAO_CLIENT_ID}}
+        kakao.client-secret: ${{secrets.KAKAO_CLIENT_SECRET}}
+        db.url: {{$db.url}}
+        db.username: {{$db.username}}
+        db.password: {{$db.password}}
+
+
+    - name: Upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://health-food-git-action/$GITHUB_SHA.zip
+
+    - name: Code Deploy
+      run: aws deploy create-deployment --application-name health-food --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name health-food --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
+

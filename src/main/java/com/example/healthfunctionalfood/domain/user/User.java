@@ -52,4 +52,25 @@ public class User extends TimeStamped {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private final List<HealthHistory> healthHistories = new ArrayList<>();
+
+    public static User OauthSignUp(String providerId, String email, String password, String name, String nickname, String age, String gender, String phone, Boolean plusfriends,
+                                   SocialType socialType) {
+        return new User(providerId, email, password, name, nickname, age, gender, phone, plusfriends, socialType);
+    }
+
+    private User(String kakaoId, String email, String password, String name, String nickname, String age, String gender, String phone, Boolean plusfriends,
+                 SocialType socialType) {
+        this.kakaoId = kakaoId;
+        this.email = email;
+        this.password = password;
+        this.userName = name;
+        this.nickname = nickname;
+        this.socialType = socialType;
+        this.age = 0;
+        this.gender = gender;
+        this.phone = phone;
+        this.plusfriends = plusfriends;
+        this.role = Role.USER;
+
+    }
 }
