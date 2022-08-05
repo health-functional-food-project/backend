@@ -70,5 +70,5 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://health-food-git-action/$GITHUB_SHA.zip
 
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name health-food --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name health-food --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
+        run: aws deploy create-deployment --application-name health-food --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name health-food --s3-location bucket=health-food-git-action,bundleType=zip,key=$GITHUB_SHA.zip
 
