@@ -1,13 +1,13 @@
-package com.example.healthfunctionalfood;
+// package com.example.healthfunctionalfood;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class HealthFunctionalFoodApplicationTests {
+// @SpringBootTest
+// class HealthFunctionalFoodApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+//     @Test
+//     void contextLoads() {
+//     }
 
-}
+// }
