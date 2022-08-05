@@ -1,4 +1,4 @@
-package com.example.healthfunctionalfood.service.customer;
+package com.example.healthfunctionalfood.service.review.customer;
 
 import com.example.healthfunctionalfood.advice.exception.ApiRequestException;
 import com.example.healthfunctionalfood.domain.product.Product;
@@ -43,12 +43,9 @@ public class CustomerServiceImpl implements CustomerService{
         Optional<Product> productOptional = Optional.ofNullable(productRepository.findById(productId).orElseThrow(() ->
                 new ApiRequestException("존재하지 않는 제품입니다.")));
         CustomerReview saveCustomerReview = createReview.toEntity(productOptional.get(), user);
-
-        CustomerReview customer = customerReviewRepository.save(saveCustomerReview);
-
         List<CustomerReview> customerReviewList = customerReviewRepository.findByProductId(productId);
         addCustomerReviewAvg(customerReviewList, productOptional);
-        return customer.getId();
+        return  customerReviewRepository.save(saveCustomerReview).getId();
     }
 
     @Override

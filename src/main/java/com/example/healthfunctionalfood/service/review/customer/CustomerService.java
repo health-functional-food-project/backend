@@ -1,4 +1,4 @@
-package com.example.healthfunctionalfood.service.customer;
+package com.example.healthfunctionalfood.service.review.customer;
 
 import com.example.healthfunctionalfood.dto.request.CustomerReviewRequestDto;
 import com.example.healthfunctionalfood.dto.response.CustomerReviewResponseDto;
